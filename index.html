@@ -1,506 +1,286 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mobile Tracking System</title>
-  <style>
-    :root { color-scheme: light; --bg:#f4f7fb; --card:#ffffff; --ink:#172033; --muted:#667085; --line:#e3e8f0; --primary:#2457e6; --primary-dark:#1744bf; --good:#137a4b; --warn:#9a6700; --bad:#b42318; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
-    .top { background:#101b35; color:#fff; padding:22px 18px; }
-    .top-inner { max-width:1100px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .brand { font-size:20px; font-weight:800; letter-spacing:.2px; }
-    .subbrand { color:#bdc9e5; font-size:12px; margin-top:4px; }
-    .wrap { max-width:1100px; margin:24px auto; padding:0 16px 40px; }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:0 8px 26px rgba(20,35,70,.045); margin-bottom:16px; }
-    h1,h2,h3,p { margin-top:0; } h2 { font-size:19px; margin-bottom:8px; } h3 { font-size:15px; margin-bottom:12px; }
-    .muted { color:var(--muted); font-size:13px; line-height:1.5; }
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .field { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
-    label { font-size:13px; font-weight:700; color:#344054; }
-    input,select,textarea { width:100%; border:1px solid #cfd7e4; border-radius:10px; padding:12px; font:inherit; font-size:14px; background:#fff; color:#172033; outline:none; }
-    input:focus,select:focus,textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px #2457e61c; }
-    textarea { min-height:84px; resize:vertical; }
-    button { border:0; border-radius:10px; padding:11px 15px; font-weight:750; font-size:14px; cursor:pointer; background:var(--primary); color:#fff; }
-    button:hover { background:var(--primary-dark); } button.secondary { background:#eaf0ff; color:#2149bd; } button.danger { background:#fff0ef; color:var(--bad); } button:disabled { opacity:.55; cursor:not-allowed; }
-    .actions { display:flex; flex-wrap:wrap; gap:8px; }
-    .hidden { display:none !important; }
-    .status { border-radius:10px; padding:11px 12px; font-size:13px; margin-bottom:14px; background:#eef4ff; color:#2446a6; overflow-wrap:anywhere; }
-    .status.error { background:#fff0ef; color:#a51d16; } .status.success { background:#e9f8ef; color:#17663d; }
-    .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-bottom:16px; }
-    .stat { border:1px solid var(--line); background:#fbfcff; padding:15px; border-radius:12px; }
-    .stat strong { display:block; font-size:24px; margin-top:6px; }
-    .pill { display:inline-block; border-radius:999px; background:#eef2f7; color:#475467; padding:4px 8px; font-size:11px; font-weight:800; text-transform:uppercase; }
-    .pill.available,.pill.approved { background:#e7f7ed; color:#137a4b; } .pill.pending { background:#fff4d6; color:#8a5b00; } .pill.rejected { background:#ffebea; color:#b42318; }
-    .table-wrap { overflow-x:auto; } table { width:100%; border-collapse:collapse; font-size:13px; min-width:580px; } th,td { padding:11px 10px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; } th { color:#667085; font-size:11px; text-transform:uppercase; letter-spacing:.4px; }
-    .notice { border-left:3px solid #e0a11b; padding:10px 12px; background:#fff8e8; color:#6c4b00; border-radius:5px 10px 10px 5px; font-size:12px; line-height:1.5; }
-    .footer { text-align:center; font-size:12px; color:#8992a3; padding:10px; }
-    @media(max-width:650px) { .grid,.stats { grid-template-columns:1fr; } .top-inner { align-items:flex-start; flex-direction:column; } .card { padding:16px; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mobile Tracking | Admin Dashboard</title>
+<style>
+:root{font-family:Inter,system-ui,Arial,sans-serif;color:#e9edff;background:#0b1020}
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020}
+button,input{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;font-weight:700}
+.layout{min-height:100vh;display:grid;grid-template-columns:235px 1fr}
+aside{background:#10172b;border-right:1px solid #252d45;padding:25px 16px}
+.logo{font-size:18px;font-weight:850;margin-bottom:35px}
+.logo span{color:#8b91ff}
+.nav{padding:12px;border-radius:10px;background:#242b49;color:#fff;margin-bottom:8px;font-size:14px}
+.side-note{font-size:12px;color:#8f9ab8;line-height:1.7;margin-top:35px}
+main{padding:30px;min-width:0}
+header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:28px}
+h1{font-size:27px;margin:0 0 7px;letter-spacing:-.8px}
+.sub{color:#929db9;font-size:13px}
+.live{font-size:12px;color:#7ee7b1;background:#12352e;padding:9px 12px;border-radius:20px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.card,.panel{background:#141c31;border:1px solid #27314b;border-radius:17px;padding:20px}
+.card small{color:#9ca8c5;font-size:12px}
+.number{font-size:32px;font-weight:800;margin-top:12px;letter-spacing:-1px}
+.accent{color:#9c9eff}.green{color:#73e6b0}.orange{color:#ffc978}.pink{color:#ff9bb2}
+.panels{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:17px}
+.panel{min-width:0;margin-bottom:17px}
+.panel h2{font-size:16px;margin:0 0 7px}
+.panel p{font-size:12px;color:#929db9;line-height:1.6}
+.tablewrap{overflow-x:auto;margin-top:17px}
+table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:12px}
+th{text-align:left;color:#929db9;font-weight:600;padding:12px 9px;border-bottom:1px solid #303a54}
+td{padding:14px 9px;border-bottom:1px solid #252f48}
+td:first-child{font-weight:700}
+.timer{display:inline-block;background:#25294b;color:#b9bdff;border-radius:8px;padding:7px;font-weight:800;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;border-radius:30px;padding:5px 8px;font-size:10px;font-weight:800;background:#153b30;color:#80edb8}
+.badge.wait{background:#3c3020;color:#ffd18a}
+.person{display:flex;align-items:center;gap:11px}
+.avatar{width:35px;height:35px;border-radius:11px;display:grid;place-items:center;background:#292c52;color:#c4c7ff;font-weight:800}
+.person small{display:block;color:#8f9ab8;margin-top:4px;font-weight:400}
+.empty{text-align:center;padding:25px;color:#929db9;font-size:13px}
+.login{max-width:420px;margin:9vh auto;background:#141c31;border:1px solid #27314b;padding:25px;border-radius:18px}
+.login h2{margin-top:0}
+label{display:block;color:#aeb8d1;font-size:12px;margin:15px 0 7px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid #35415e;background:#0d1426;color:white}
+.primary{background:#6667ef;color:white;width:100%;margin-top:18px}
+.secondary{background:#242c46;color:#e5e9ff}
+.hidden{display:none!important}
+.error{color:#ff9eac;font-size:13px;margin-top:12px;overflow-wrap:anywhere}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.panels{grid-template-columns:1fr}}
+@media(max-width:650px){.layout{grid-template-columns:1fr}aside{padding:14px 17px;border-right:0;border-bottom:1px solid #252d45}.logo{margin-bottom:12px}.nav{display:inline-block;margin:0 5px 0 0;padding:9px} .side-note{display:none}main{padding:18px 12px}h1{font-size:23px}.card,.panel{padding:15px}.number{font-size:28px}}
+</style>
 </head>
 <body>
-  <header class="top">
-    <div class="top-inner">
-      <div><div class="brand">📱 Mobile Tracking System</div><div class="subbrand">Dealership device inventory & employee requests</div></div>
-      <div class="actions"><span id="who" class="subbrand"></span><button id="logoutBtn" class="secondary hidden">Sign out</button></div>
-    </div>
-  </header>
-  <main class="wrap">
-    <div id="message" class="status hidden" role="status"></div>
+<section id="loginScreen" class="login">
+  <h2>📱 Mobile Tracking</h2>
+  <p class="sub">Sign in with your authorized admin account.</p>
+  <form id="loginForm">
+    <label>Email address</label>
+    <input id="email" type="email" autocomplete="username" required>
+    <label>Password</label>
+    <input id="password" type="password" autocomplete="current-password" required>
+    <button class="primary">Sign in to dashboard</button>
+  </form>
+  <div id="loginError" class="error"></div>
+</section>
 
-    <section id="loginPanel" class="card">
-      <h2>Sign in</h2>
-      <p class="muted">Use the email and password created in Firebase Authentication. There is no public sign-up.</p>
-      <form id="loginForm">
-        <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="username" required placeholder="you@example.com" /></div>
-        <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="Enter password" /></div>
-        <button type="submit">Sign in securely</button>
-      </form>
-      <div class="notice" style="margin-top:16px">Admin/employee access is controlled by Firestore profile role. Never share account passwords or use public write rules.</div>
+<div id="app" class="layout hidden">
+  <aside>
+    <div class="logo">📱 Mobile<span>Track.</span></div>
+    <div class="nav">▦ &nbsp; Overview</div>
+    <div class="nav">◉ &nbsp; Active mobiles</div>
+    <div class="nav">◷ &nbsp; Employees waiting</div>
+    <div class="side-note">DEALERSHIP OPERATIONS<br>Live inventory monitoring<br><br>Data syncs with Firebase.</div>
+  </aside>
+  <main>
+    <header>
+      <div>
+        <h1>Operations dashboard</h1>
+        <div class="sub" id="today"></div>
+      </div>
+      <div>
+        <span class="live">● LIVE DATA</span>
+        <button id="logout" class="secondary">Sign out</button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card"><small>Total mobiles</small><div class="number accent" id="total">0</div></div>
+      <div class="card"><small>Currently in use</small><div class="number green" id="active">0</div></div>
+      <div class="card"><small>Employees waiting</small><div class="number orange" id="waiting">0</div></div>
+      <div class="card"><small>Pending requests</small><div class="number pink" id="pending">0</div></div>
     </section>
 
-    <section id="profilePanel" class="card hidden">
-      <h2>Account profile</h2><p class="muted">Signed-in account details from Firestore.</p>
-      <div id="profileInfo"></div>
+    <section class="panels">
+      <div>
+        <div class="panel">
+          <h2>Currently using a mobile</h2>
+          <p>Assignment time and continuously updating usage duration.</p>
+          <div class="tablewrap" id="activeTable"></div>
+        </div>
+        <div class="panel">
+          <h2>All mobile inventory</h2>
+          <p>Current device status and assigned employee.</p>
+          <div class="tablewrap" id="inventoryTable"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <h2>Employees yet to take a mobile</h2>
+          <p>Employees without a currently assigned device.</p>
+          <div id="waitingList"></div>
+        </div>
+        <div class="panel">
+          <h2>Request overview</h2>
+          <p>Requests waiting for administrator review.</p>
+          <div id="requestList"></div>
+        </div>
+      </div>
     </section>
-
-    <section id="adminPanel" class="hidden">
-      <div class="card">
-        <h2>Admin dashboard</h2><p class="muted">Inventory and request overview.</p>
-        <div id="stats" class="stats"></div>
-        <div class="actions"><button id="refreshBtn" class="secondary">Refresh data</button><button id="exportBtn" class="secondary">Export backup CSV</button></div>
-      </div>
-      <div class="card">
-        <h2>Device inventory</h2>
-        <p class="muted">Add and edit inventory records. Use a document ID such as MOB001.</p>
-        <form id="deviceForm">
-          <div class="grid">
-            <div class="field"><label for="deviceId">Device document ID</label><input id="deviceId" required placeholder="MOB001" /></div>
-            <div class="field"><label for="brand">Brand</label><input id="brand" required placeholder="Samsung" /></div>
-            <div class="field"><label for="model">Model</label><input id="model" required placeholder="Galaxy A..." /></div>
-            <div class="field"><label for="imei1">IMEI 1</label><input id="imei1" inputmode="numeric" placeholder="Optional" /></div>
-            <div class="field"><label for="imei2">IMEI 2</label><input id="imei2" inputmode="numeric" placeholder="Optional" /></div>
-            <div class="field"><label for="condition">Condition</label><select id="condition"><option value="good">Good</option><option value="fair">Fair</option><option value="damaged">Damaged</option></select></div>
-            <div class="field"><label for="deviceStatus">Status</label><select id="deviceStatus"><option value="available">Available</option><option value="assigned">Assigned</option><option value="maintenance">Maintenance</option></select></div>
-            <div class="field"><label for="assignedTo">Assigned employee UID</label><input id="assignedTo" placeholder="Firebase Auth UID, or blank" /></div>
-          </div>
-          <div class="actions"><button type="submit">Save device</button><button type="button" id="clearDeviceBtn" class="secondary">Clear form</button></div>
-        </form>
-      </div>
-      <div class="card">
-        <h2>Assign device to employee</h2>
-        <p class="muted">Choose a device and employee. Assignment is saved to the device's <code>assignedTo</code> field using the employee's Firebase UID.</p>
-        <form id="assignForm">
-          <div class="grid">
-            <div class="field"><label for="assignDevice">Device</label><select id="assignDevice" required><option value="">Choose device</option></select></div>
-            <div class="field"><label for="assignEmployee">Employee</label><select id="assignEmployee" required><option value="">Choose employee</option></select></div>
-          </div>
-          <div class="actions"><button type="submit">Assign device</button><button type="button" id="unassignBtn" class="secondary">Unassign selected device</button></div>
-        </form>
-      </div>
-      <div class="card"><h2>All devices</h2><div id="devicesTable" class="table-wrap"></div></div>
-      <div class="card"><h2>All employee profiles</h2><div id="usersTable" class="table-wrap"></div></div>
-      <div class="card"><h2>Requests</h2><p class="muted">Review is intentionally basic here. Approve/reject writes status and reviewer metadata; test with sample data before operational use.</p><div id="requestsTable" class="table-wrap"></div></div>
-    </section>
-
-    <section id="employeePanel" class="hidden">
-      <div class="card"><h2>My assigned device</h2><div id="myDevice"></div></div>
-      <div class="card">
-        <h2>Submit a request</h2>
-        <p class="muted">Submit an issue or return request for the device currently assigned to you. Admin review is required.</p>
-        <form id="requestForm">
-          <div class="field"><label for="requestType">Request type</label><select id="requestType" required><option value="issue">Report device issue</option><option value="return">Request device return</option></select></div>
-          <div class="field"><label for="remarks">Remarks (required)</label><textarea id="remarks" required maxlength="1000" placeholder="Describe the issue or return condition..."></textarea></div>
-          <div class="field"><label for="conditionAtRequest">Current condition</label><select id="conditionAtRequest"><option value="good">Good</option><option value="fair">Fair</option><option value="damaged">Damaged</option></select></div>
-          <div class="field"><label for="photoNote">Photo proof note (optional)</label><input id="photoNote" maxlength="300" placeholder="Optional note; this starter does not upload photos" /></div>
-          <button type="submit">Submit request</button>
-        </form>
-      </div>
-      <div class="card"><h2>My requests</h2><div id="myRequestsTable" class="table-wrap"></div></div>
-    </section>
-    <div class="footer">Firebase Authentication + Cloud Firestore · Keep Security Rules enabled</div>
+    <p class="sub">Mobile Tracking System · Firebase connected dashboard</p>
   </main>
+</div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-    import { getFirestore, doc, getDoc, getDocs, collection, query, where, setDoc, addDoc, updateDoc, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut}
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import {getFirestore,collection,doc,getDoc,onSnapshot}
+  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // Your Firebase web app config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBUmL-4FX8XGaGq_wLlO699Nw-fZIeXMjg",
-      authDomain: "mobile-details-10065.firebaseapp.com",
-      projectId: "mobile-details-10065",
-      storageBucket: "mobile-details-10065.firebasestorage.app",
-      messagingSenderId: "706518263944",
-      appId: "1:706518263944:web:5b44f94e29a79d223f573d",
-      measurementId: "G-GLEXWMLQ9G"
-    };
+const firebaseConfig={
+  apiKey:"AIzaSyBUmL-4FX8XGaGq_wLlO699Nw-fZIeXMjg",
+  authDomain:"mobile-details-10065.firebaseapp.com",
+  projectId:"mobile-details-10065",
+  storageBucket:"mobile-details-10065.firebasestorage.app",
+  messagingSenderId:"706518263944",
+  appId:"1:706518263944:web:5b44f94e29a79d223f573d",
+  measurementId:"G-GLEXWMLQ9G"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    let currentUser = null;
-    let profile = null;
-    let cache = { users: [], devices: [], requests: [], myDevices: [], myRequests: [] };
-    let liveUnsubscribers = [];
-    let timerInterval = null;
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const $=id=>document.getElementById(id);
+let users=[],devices=[],requests=[],unsubs=[],clock=null;
 
-    function stopLiveUpdates() {
-      liveUnsubscribers.forEach(unsub => { try { unsub(); } catch (_) {} });
-      liveUnsubscribers = [];
-      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-    }
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+function millis(v){
+  if(!v)return 0;
+  if(typeof v.toMillis==="function")return v.toMillis();
+  if(typeof v.seconds==="number")return v.seconds*1000;
+  const n=new Date(v).getTime();
+  return Number.isFinite(n)?n:0;
+}
+function date(v){
+  const n=millis(v);
+  return n?new Date(n).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}):"Not recorded";
+}
+function duration(start){
+  const sec=Math.max(0,Math.floor((Date.now()-start)/1000));
+  const d=Math.floor(sec/86400),h=Math.floor(sec%86400/3600),
+        m=Math.floor(sec%3600/60),s=sec%60;
+  return (d?d+"d ":"")+[h,m,s].map(x=>String(x).padStart(2,"0")).join(":");
+}
+function stop(){
+  unsubs.forEach(fn=>fn());
+  unsubs=[];
+  if(clock)clearInterval(clock);
+}
+function showError(msg){$("loginError").textContent=msg}
+function empty(msg){return `<div class="empty">${esc(msg)}</div>`}
+function userName(uid){
+  const u=users.find(x=>x.id===uid);
+  return u?(u.name||u.empCode||u.id):"Unknown employee";
+}
+function render(){
+  const assigned=devices.filter(d=>d.status==="assigned"&&d.assignedTo);
+  const employees=users.filter(u=>u.role==="employee");
+  const waiting=employees.filter(u=>!assigned.some(d=>d.assignedTo===u.id));
+  const pending=requests.filter(r=>(r.status||"pending")==="pending");
 
-    function startLiveClock() {
-      if (timerInterval) clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        document.querySelectorAll("[data-start-time]").forEach(el => {
-          const started = Number(el.dataset.startTime);
-          if (started > 0) el.textContent = formatDuration(Date.now() - started);
-        });
-      }, 1000);
-    }
+  $("total").textContent=devices.length;
+  $("active").textContent=assigned.length;
+  $("waiting").textContent=waiting.length;
+  $("pending").textContent=pending.length;
 
-    function formatDuration(ms) {
-      if (!Number.isFinite(ms) || ms < 0) ms = 0;
-      const total = Math.floor(ms / 1000);
-      const days = Math.floor(total / 86400);
-      const hours = Math.floor((total % 86400) / 3600);
-      const mins = Math.floor((total % 3600) / 60);
-      const secs = total % 60;
-      return (days ? days + "d " : "") + String(hours).padStart(2,"0") + ":" +
-        String(mins).padStart(2,"0") + ":" + String(secs).padStart(2,"0");
-    }
+  $("activeTable").innerHTML=assigned.length?`<table>
+    <thead><tr><th>Employee</th><th>Mobile</th><th>Taken at</th><th>Time elapsed</th></tr></thead>
+    <tbody>${assigned.map(d=>{
+      const start=millis(d.assignedAt);
+      return `<tr>
+        <td><div class="person"><div class="avatar">${esc(userName(d.assignedTo).slice(0,1).toUpperCase())}</div>
+        <div>${esc(userName(d.assignedTo))}<small>${esc(d.assignedTo)}</small></div></div></td>
+        <td>${esc(d.brand||"")} ${esc(d.model||"")}<small style="display:block;color:#929db9;margin-top:4px">${esc(d.id)}</small></td>
+        <td>${esc(date(d.assignedAt))}</td>
+        <td>${start?`<span class="timer" data-start="${start}">${duration(start)}</span>`:"<span class='badge wait'>Time missing</span>"}</td>
+      </tr>`;
+    }).join("")}</tbody></table>`:empty("No mobiles are currently assigned.");
 
-    function asMillis(v) {
-      if (!v) return null;
-      if (typeof v.toMillis === "function") return v.toMillis();
-      if (typeof v.seconds === "number") return v.seconds * 1000;
-      const n = new Date(v).getTime();
-      return Number.isFinite(n) ? n : null;
-    }
+  $("waitingList").innerHTML=waiting.length?waiting.map(u=>`
+    <div class="person" style="margin:16px 0">
+      <div class="avatar">${esc((u.name||"?").slice(0,1).toUpperCase())}</div>
+      <div style="flex:1;min-width:0">${esc(u.name||"Unnamed employee")}
+        <small>${esc(u.empCode||u.id)}</small></div>
+      <span class="badge wait">WAITING</span>
+    </div>`).join(""):empty("All employees have a mobile assigned.");
 
-    function makeReceiptNo(id, createdAt) {
-      const date = asMillis(createdAt);
-      const stamp = date ? new Date(date).toISOString().slice(0,10).replaceAll("-","") : "PENDING";
-      return "MTS-" + stamp + "-" + String(id).slice(-6).toUpperCase();
-    }
+  $("inventoryTable").innerHTML=devices.length?`<table>
+    <thead><tr><th>Device</th><th>Employee</th><th>Status</th></tr></thead>
+    <tbody>${devices.map(d=>`<tr>
+      <td>${esc(d.id)}<small style="display:block;color:#929db9;margin-top:4px">${esc(d.brand||"")} ${esc(d.model||"")}</small></td>
+      <td>${d.assignedTo?esc(userName(d.assignedTo)):"—"}</td>
+      <td><span class="badge ${d.status==="assigned"?"":"wait"}">${esc(d.status||"unknown")}</span></td>
+    </tr>`).join("")}</tbody></table>`:empty("No inventory devices found.");
 
-    function durationBetween(start, end) {
-      const a = asMillis(start), b = asMillis(end);
-      return a && b ? formatDuration(b-a) : "—";
-    }
+  $("requestList").innerHTML=pending.length?pending.slice(0,10).map(r=>`
+    <div style="padding:13px 0;border-bottom:1px solid #29334c">
+      <div style="font-weight:700;font-size:13px">${esc(userName(r.employeeId))}</div>
+      <div class="sub" style="margin:5px 0">${esc(r.type)} · ${esc(r.deviceId||"No device ID")}</div>
+      <div class="sub">${esc(date(r.createdAt))}</div>
+      <span class="badge wait">PENDING</span>
+    </div>`).join(""):empty("No pending requests.");
 
-    const $ = (id) => document.getElementById(id);
-    function showMessage(text, type = "") {
-      const el = $("message");
-      el.textContent = text;
-      el.className = "status" + (type ? " " + type : "");
-      el.classList.remove("hidden");
-    }
-    function clearMessage() { $("message").classList.add("hidden"); }
-    function safe(value) {
-      return String(value ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
-    }
-    function dateText(value) {
-      if (!value) return "—";
-      const d = value.toDate ? value.toDate() : new Date(value);
-      return Number.isNaN(d.getTime()) ? "—" : d.toLocaleString();
-    }
-    function pill(value) {
-      const s = String(value || "unknown").toLowerCase();
-      const cls = ["available","approved","pending","rejected"].includes(s) ? s : "";
-      return `<span class="pill ${cls}">${safe(s)}</span>`;
-    }
-    function table(headers, rows) {
-      if (!rows.length) return '<p class="muted">No records found.</p>';
-      return `<table><thead><tr>${headers.map(h=>`<th>${safe(h)}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table>`;
-    }
-    function showOnly(role) {
-      $("loginPanel").classList.toggle("hidden", !!currentUser);
-      $("logoutBtn").classList.toggle("hidden", !currentUser);
-      $("profilePanel").classList.toggle("hidden", !currentUser);
-      $("adminPanel").classList.toggle("hidden", !currentUser || role !== "admin");
-      $("employeePanel").classList.toggle("hidden", !currentUser || role !== "employee");
-      $("who").textContent = currentUser ? (profile?.name || currentUser.email || "Signed in") : "";
-    }
-    function loadAdminData() {
-      const unsubUsers = onSnapshot(collection(db, "users"), snap => {
-        cache.users = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-        renderAdmin();
-      }, err => showMessage("Live users update failed: " + err.message, "error"));
-      const unsubDevices = onSnapshot(collection(db, "devices"), snap => {
-        cache.devices = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-        renderAdmin();
-      }, err => showMessage("Live devices update failed: " + err.message, "error"));
-      const unsubRequests = onSnapshot(collection(db, "requests"), snap => {
-        cache.requests = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-        renderAdmin();
-      }, err => showMessage("Live requests update failed: " + err.message, "error"));
-      liveUnsubscribers.push(unsubUsers, unsubDevices, unsubRequests);
-    }
-
-    function loadEmployeeData() {
-      const unsubDevices = onSnapshot(
-        query(collection(db, "devices"), where("assignedTo", "==", currentUser.uid)),
-        snap => {
-          cache.myDevices = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-          renderEmployee();
-        },
-        err => showMessage("Live device update failed: " + err.message, "error")
-      );
-      const unsubRequests = onSnapshot(
-        query(collection(db, "requests"), where("employeeId", "==", currentUser.uid)),
-        snap => {
-          cache.myRequests = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-          renderEmployee();
-        },
-        err => showMessage("Live request update failed: " + err.message, "error")
-      );
-      liveUnsubscribers.push(unsubDevices, unsubRequests);
-    }
-
-    function renderEmployee() {
-      $("myDevice").innerHTML = cache.myDevices.length
-        ? cache.myDevices.map(d => {
-          const active = d.status === "assigned" && d.assignedAt;
-          const started = asMillis(d.assignedAt);
-          return `<div class="card"><h3>${safe(d.brand)} ${safe(d.model)}</h3>
-            <p>Device ID: <b>${safe(d.id)}</b></p>
-            <p>IMEI 1: ${safe(d.imei1 || "—")}<br>IMEI 2: ${safe(d.imei2 || "—")}</p>
-            <p>Status: ${pill(d.status)} · Condition: ${pill(d.condition)}</p>
-            ${active && started ? `<p><b>Receipt No:</b> ${safe(makeReceiptNo(d.id,d.assignedAt))}</p>
-            <p><b>Received at:</b> ${safe(dateText(d.assignedAt))}</p>
-            <p><b>Time with me:</b> <strong data-start-time="${started}">${formatDuration(Date.now()-started)}</strong></p>` : ""}
-          </div>`;
-        }).join("")
-        : '<p class="muted">No device is assigned to your account yet. Contact admin.</p>';
-
-      const active = cache.myDevices.find(d => d.status === "assigned" && d.assignedAt);
-      const history = cache.myRequests.filter(r => r.type === "return" && r.status === "approved");
-      const requestRows = cache.myRequests.map(r => {
-        const receipt = r.receiptNo || (r.status === "approved" && r.type === "issue" ? makeReceiptNo(r.id,r.approvedAt || r.createdAt) : "—");
-        return `<tr><td>${safe(r.type)}</td><td>${safe(r.deviceId || "—")}</td>
-          <td>${safe(r.remarks || "—")}</td><td>${pill(r.status)}</td>
-          <td>${safe(dateText(r.createdAt))}</td><td>${safe(receipt)}</td></tr>`;
-      });
-      const historyRows = history.map(r => {
-        const start = r.assignedAt || r.approvedAt || r.createdAt;
-        const end = r.depositApprovedAt || r.reviewedAt;
-        return `<tr><td>${safe(r.deviceId || "—")}</td><td>${safe(dateText(start))}</td>
-          <td>${safe(dateText(r.depositRequestedAt || r.createdAt))}</td>
-          <td>${safe(dateText(end))}</td><td>${safe(durationBetween(start,end))}</td></tr>`;
-      });
-      $("myRequestsTable").innerHTML =
-        (active ? `<div class="notice">Active device timer: <b data-start-time="${asMillis(active.assignedAt)}">${formatDuration(Date.now()-asMillis(active.assignedAt))}</b></div>` : "") +
-        '<h3>Request list</h3>' + table(["Type","Device","Remarks","Status","Submitted","Receipt No."], requestRows) +
-        '<h3 style="margin-top:20px">Deposit / return history</h3>' +
-        table(["Device","Taken at","Return requested","Deposit approved","Total time"], historyRows);
-      startLiveClock();
-    }
-
-    function renderAdmin() {
-      const pending = cache.requests.filter(r => (r.status || "pending") === "pending").length;
-      $("stats").innerHTML = [
-        ["Employees", cache.users.filter(u=>u.role==="employee").length],
-        ["Devices", cache.devices.length],
-        ["Pending requests", pending]
-      ].map(([label,value])=>`<div class="stat"><span class="muted">${safe(label)}</span><strong>${safe(value)}</strong></div>`).join("");
-      $("assignDevice").innerHTML = '<option value="">Choose device</option>' + cache.devices.map(d=>`<option value="${safe(d.id)}">${safe(d.id)} — ${safe(d.brand||"")} ${safe(d.model||"")}${d.assignedTo ? " (currently assigned)" : ""}</option>`).join("");
-      $("assignEmployee").innerHTML = '<option value="">Choose employee</option>' + cache.users.filter(u=>u.role==="employee").map(u=>`<option value="${safe(u.id)}">${safe(u.name||u.empCode||u.id)} — ${safe(u.empCode||u.id)}</option>`).join("");
-      $("devicesTable").innerHTML = table(["Device ID","Brand / model","IMEI 1","IMEI 2","Assigned employee UID","Status","Action"], cache.devices.map(d=>`<tr>
-        <td>${safe(d.id)}</td><td>${safe(d.brand)} ${safe(d.model)}</td><td>${safe(d.imei1||"—")}</td><td>${safe(d.imei2||"—")}</td><td>${safe(d.assignedTo||"—")}</td><td>${pill(d.status)}</td>
-        <td><button class="secondary" data-edit-device="${safe(d.id)}">Edit</button></td></tr>`));
-      $("usersTable").innerHTML = table(["UID","Name","Employee code","Email","Role"], cache.users.map(u=>`<tr><td>${safe(u.id)}</td><td>${safe(u.name||"—")}</td><td>${safe(u.empCode||"—")}</td><td>${safe(u.email||"—")}</td><td>${pill(u.role)}</td></tr>`));
-      $("requestsTable").innerHTML = table(["Request ID","Employee UID","Type","Device","Remarks","Status","Review"], cache.requests.map(r=>`<tr>
-        <td>${safe(r.id)}</td><td>${safe(r.employeeId)}</td><td>${safe(r.type)}</td><td>${safe(r.deviceId||"—")}</td><td>${safe(r.remarks)}</td><td>${pill(r.status||"pending")}</td>
-        <td>${(r.status||"pending")==="pending" ? `<div class="actions"><button data-review="${safe(r.id)}" data-status="approved">Approve</button><button class="danger" data-review="${safe(r.id)}" data-status="rejected">Reject</button></div>` : "Reviewed"}</td></tr>`));
-    }
-    async function loadData() {
-      if (!currentUser || !profile) return;
-      showOnly(profile.role);
-      $("profileInfo").innerHTML = `<p><b>Name:</b> ${safe(profile.name || "—")}</p><p><b>Email:</b> ${safe(currentUser.email || profile.email || "—")}</p><p><b>Employee code:</b> ${safe(profile.empCode || "—")}</p><p><b>Role:</b> ${pill(profile.role)}</p>`;
-      if (profile.role === "admin") await loadAdminData();
-      else if (profile.role === "employee") await loadEmployeeData();
-      else showMessage("Your profile role is missing or invalid. Ask an admin to check users/{your UID}.", "error");
-    }
-
-    $("loginForm").addEventListener("submit", async (e) => {
-      e.preventDefault(); clearMessage();
-      try {
-        await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
-      } catch (err) { showMessage("Sign-in failed: " + err.message, "error"); }
+  $("today").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+}
+function listen(path,callback){
+  const unsub=onSnapshot(collection(db,path),snap=>{
+    callback(snap.docs.map(d=>({id:d.id,...d.data()})));
+    render();
+  },err=>{
+    console.error(path,err);
+    showError("Data access failed. Check Firestore Security Rules: "+err.message);
+  });
+  unsubs.push(unsub);
+}
+function start(){
+  stop();
+  listen("users",v=>users=v);
+  listen("devices",v=>devices=v);
+  listen("requests",v=>requests=v);
+  clock=setInterval(()=>{
+    document.querySelectorAll("[data-start]").forEach(el=>{
+      el.textContent=duration(Number(el.dataset.start));
     });
-    $("logoutBtn").addEventListener("click", async () => { await signOut(auth); showMessage("Signed out successfully.", "success"); });
-    $("refreshBtn").addEventListener("click", async () => {
-      try { await loadData(); showMessage("Data refreshed.", "success"); }
-      catch (e) { showMessage("Could not load data. Check Firestore Rules and required query fields. " + e.message, "error"); }
-    });
-    $("deviceForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (profile?.role !== "admin") return;
-      const id = $("deviceId").value.trim();
-      const assignedTo = $("assignedTo").value.trim();
-      const payload = {
-        brand: $("brand").value.trim(),
-        model: $("model").value.trim(),
-        imei1: $("imei1").value.trim(),
-        imei2: $("imei2").value.trim(),
-        condition: $("condition").value,
-        status: $("deviceStatus").value,
-        assignedTo,
-        updatedAt: serverTimestamp(),
-        updatedBy: currentUser.uid
-      };
-      try {
-        await setDoc(doc(db,"devices",id), payload, { merge:true });
-        showMessage("Device saved.", "success"); $("deviceForm").reset(); await loadAdminData();
-      } catch (err) { showMessage("Could not save device: " + err.message, "error"); }
-    });
-    $("clearDeviceBtn").addEventListener("click", () => $("deviceForm").reset());
+  },1000);
+}
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();showError("");
+  try{
+    await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
+  }catch(err){showError("Login failed: "+err.message)}
+});
+$("logout").addEventListener("click",()=>signOut(auth));
 
-    $("assignForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (profile?.role !== "admin") return;
-      const deviceId = $("assignDevice").value;
-      const employeeUid = $("assignEmployee").value;
-      if (!deviceId || !employeeUid) {
-        showMessage("Choose both a device and an employee.", "error");
-        return;
-      }
-      const device = cache.devices.find(d => d.id === deviceId);
-      const employee = cache.users.find(u => u.id === employeeUid && u.role === "employee");
-      if (!device || !employee) {
-        showMessage("Selected device or employee was not found. Refresh and try again.", "error");
-        return;
-      }
-      const otherAssigned = cache.devices.find(d => d.id !== deviceId && d.assignedTo === employeeUid);
-      if (otherAssigned) {
-        showMessage("This employee already has a device assigned (" + otherAssigned.id + "). Unassign or return it first.", "error");
-        return;
-      }
-      if (!confirm("Assign " + deviceId + " to " + (employee.name || employee.empCode || employeeUid) + "?")) return;
-      try {
-        await updateDoc(doc(db, "devices", deviceId), {
-          assignedTo: employeeUid,
-          status: "assigned",
-          assignedAt: serverTimestamp(),
-          assignedBy: currentUser.uid
-        });
-        $("assignedTo").value = employeeUid;
-        $("deviceStatus").value = "assigned";
-        await loadAdminData();
-        showMessage("Device assigned successfully.", "success");
-      } catch (err) {
-        showMessage("Assignment failed: " + err.message, "error");
-      }
-    });
-
-    $("unassignBtn").addEventListener("click", async () => {
-      if (profile?.role !== "admin") return;
-      const deviceId = $("assignDevice").value;
-      if (!deviceId) { showMessage("Choose a device first.", "error"); return; }
-      if (!confirm("Unassign " + deviceId + "? The employee will no longer see it as their assigned device.")) return;
-      try {
-        await updateDoc(doc(db, "devices", deviceId), {
-          assignedTo: "",
-          status: "available",
-          unassignedAt: serverTimestamp(),
-          unassignedBy: currentUser.uid
-        });
-        await loadAdminData();
-        showMessage("Device unassigned.", "success");
-      } catch (err) {
-        showMessage("Unassign failed: " + err.message, "error");
-      }
-    });
-    $("devicesTable").addEventListener("click", (e) => {
-      const btn = e.target.closest("[data-edit-device]");
-      if (!btn) return;
-      const d = cache.devices.find(x=>x.id===btn.dataset.editDevice); if (!d) return;
-      $("deviceId").value=d.id; $("brand").value=d.brand||""; $("model").value=d.model||"";
-      $("imei1").value=d.imei1||""; $("imei2").value=d.imei2||""; $("condition").value=d.condition||"good";
-      $("deviceStatus").value=d.status||"available"; $("assignedTo").value=d.assignedTo||"";
-      $("deviceForm").scrollIntoView({behavior:"smooth",block:"start"});
-    });
-    $("requestsTable").addEventListener("click", async (e) => {
-      const btn = e.target.closest("[data-review]");
-      if (!btn) return;
-      const id = btn.dataset.review, status = btn.dataset.status;
-      const reason = status === "rejected" ? prompt("Reason for rejection (required):") : "";
-      if (status === "rejected" && !reason?.trim()) { showMessage("Rejection cancelled: a reason is required.", "error"); return; }
-      if (!confirm(`${status.toUpperCase()} this request?`)) return;
-      try {
-        const req = cache.requests.find(x => x.id === id);
-        await updateDoc(doc(db,"requests",id), {
-          status,
-          reviewReason: reason?.trim() || "",
-          reviewedAt: serverTimestamp(),
-          reviewedBy: currentUser.uid,
-          ...(status === "approved" ? {
-            approvedAt: serverTimestamp(),
-            ...(req?.type === "return" ? { depositApprovedAt: serverTimestamp() } : {}),
-            receiptNo: "MTS-" + new Date().toISOString().slice(0,10).replaceAll("-","") + "-" + id.slice(-6).toUpperCase()
-          } : {})
-        });
-        if (status === "approved" && req?.type === "return" && req.deviceId) {
-          await updateDoc(doc(db,"devices",req.deviceId), {
-            assignedTo: "",
-            status: "available",
-            depositedAt: serverTimestamp(),
-            depositedBy: currentUser.uid
-          });
-        }
-        showMessage(`Request ${status}.`, "success");
-      } catch (err) { showMessage("Review failed: " + err.message, "error"); }
-    });
-    $("requestForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (profile?.role !== "employee") return;
-      const device = cache.myDevices[0];
-      if (!device) { showMessage("You need an assigned device before submitting a request.", "error"); return; }
-      const type = $("requestType").value;
-      try {
-        await addDoc(collection(db,"requests"), {
-          employeeId: currentUser.uid,
-          employeeName: profile.name || "",
-          type,
-          deviceId: device.id,
-          remarks: $("remarks").value.trim(),
-          condition: $("conditionAtRequest").value,
-          photoNote: $("photoNote").value.trim(),
-          status: "pending",
-          createdAt: serverTimestamp(),
-          ...(type === "return" ? { depositRequestedAt: serverTimestamp(), assignedAt: device.assignedAt || null } : {})
-        });
-        $("requestForm").reset(); await loadEmployeeData(); showMessage("Request submitted for admin review.", "success");
-      } catch (err) { showMessage("Request submission failed: " + err.message, "error"); }
-    });
-    $("exportBtn").addEventListener("click", () => {
-      const rows = [["collection","id","data"], ...["users","devices","requests"].flatMap(k=>cache[k].map(x=>[k,x.id,JSON.stringify(x)]))];
-      const csv = rows.map(row=>row.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\r\n");
-      const blob = new Blob([csv],{type:"text/csv;charset=utf-8;"});
-      const url = URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="mobile-tracking-backup.csv"; a.click(); URL.revokeObjectURL(url);
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      stopLiveUpdates();
-      currentUser = user; profile = null;
-      cache = { users: [], devices: [], requests: [], myDevices: [], myRequests: [] };
-      if (!user) { showOnly(null); $("who").textContent=""; return; }
-      try {
-        const snap = await getDoc(doc(db,"users",user.uid));
-        if (!snap.exists()) { showOnly(null); await signOut(auth); showMessage("No Firestore profile found for this account. Ask admin to create users/{Auth UID}.", "error"); return; }
-        profile = snap.data();
-        if (!["admin","employee"].includes(profile.role)) { showOnly(null); await signOut(auth); showMessage("Invalid profile role. Ask admin to set role to admin or employee.", "error"); return; }
-        await loadData(); clearMessage();
-      } catch (err) {
-        showOnly(null);
-        showMessage("Could not load profile/data. Check Firestore Security Rules and collection access. " + err.message, "error");
-      }
-    });
-  </script>
+onAuthStateChanged(auth,async user=>{
+  stop();
+  $("app").classList.add("hidden");
+  $("loginScreen").classList.remove("hidden");
+  if(!user)return;
+  try{
+    const snap=await getDoc(doc(db,"users",user.uid));
+    if(!snap.exists()||snap.data().role!=="admin"){
+      await signOut(auth);
+      showError("Admin access only. This account must have role='admin' in users/{UID}.");
+      return;
+    }
+    $("loginScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    start();
+  }catch(err){
+    await signOut(auth);
+    showError("Could not verify admin profile: "+err.message);
+  }
+});
+</script>
 </body>
 </html>
