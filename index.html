@@ -3,68 +3,458 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
 <title>Mobile Tracking | Admin Dashboard</title>
+
 <style>
-:root{font-family:Inter,system-ui,Arial,sans-serif;color:#e9edff;background:#0b1020}
-*{box-sizing:border-box}
-body{margin:0;background:#0b1020}
-button,input{font:inherit}
-button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;font-weight:700}
-.layout{min-height:100vh;display:grid;grid-template-columns:235px 1fr}
-aside{background:#10172b;border-right:1px solid #252d45;padding:25px 16px}
-.logo{font-size:18px;font-weight:850;margin-bottom:35px}
-.logo span{color:#8b91ff}
-.nav{padding:12px;border-radius:10px;background:#242b49;color:#fff;margin-bottom:8px;font-size:14px}
-.side-note{font-size:12px;color:#8f9ab8;line-height:1.7;margin-top:35px}
-main{padding:30px;min-width:0}
-header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:28px}
-h1{font-size:27px;margin:0 0 7px;letter-spacing:-.8px}
-.sub{color:#929db9;font-size:13px}
-.live{font-size:12px;color:#7ee7b1;background:#12352e;padding:9px 12px;border-radius:20px}
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
-.card,.panel{background:#141c31;border:1px solid #27314b;border-radius:17px;padding:20px}
-.card small{color:#9ca8c5;font-size:12px}
-.number{font-size:32px;font-weight:800;margin-top:12px;letter-spacing:-1px}
-.accent{color:#9c9eff}.green{color:#73e6b0}.orange{color:#ffc978}.pink{color:#ff9bb2}
-.panels{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:17px}
-.panel{min-width:0;margin-bottom:17px}
-.panel h2{font-size:16px;margin:0 0 7px}
-.panel p{font-size:12px;color:#929db9;line-height:1.6}
-.tablewrap{overflow-x:auto;margin-top:17px}
-table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:12px}
-th{text-align:left;color:#929db9;font-weight:600;padding:12px 9px;border-bottom:1px solid #303a54}
-td{padding:14px 9px;border-bottom:1px solid #252f48}
-td:first-child{font-weight:700}
-.timer{display:inline-block;background:#25294b;color:#b9bdff;border-radius:8px;padding:7px;font-weight:800;font-variant-numeric:tabular-nums}
-.badge{display:inline-block;border-radius:30px;padding:5px 8px;font-size:10px;font-weight:800;background:#153b30;color:#80edb8}
-.badge.wait{background:#3c3020;color:#ffd18a}
-.person{display:flex;align-items:center;gap:11px}
-.avatar{width:35px;height:35px;border-radius:11px;display:grid;place-items:center;background:#292c52;color:#c4c7ff;font-weight:800}
-.person small{display:block;color:#8f9ab8;margin-top:4px;font-weight:400}
-.empty{text-align:center;padding:25px;color:#929db9;font-size:13px}
-.login{max-width:420px;margin:9vh auto;background:#141c31;border:1px solid #27314b;padding:25px;border-radius:18px}
-.login h2{margin-top:0}
-label{display:block;color:#aeb8d1;font-size:12px;margin:15px 0 7px}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid #35415e;background:#0d1426;color:white}
-.primary{background:#6667ef;color:white;width:100%;margin-top:18px}
-.secondary{background:#242c46;color:#e5e9ff}
-.hidden{display:none!important}
-.error{color:#ff9eac;font-size:13px;margin-top:12px;overflow-wrap:anywhere}
-@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.panels{grid-template-columns:1fr}}
-@media(max-width:650px){.layout{grid-template-columns:1fr}aside{padding:14px 17px;border-right:0;border-bottom:1px solid #252d45}.logo{margin-bottom:12px}.nav{display:inline-block;margin:0 5px 0 0;padding:9px} .side-note{display:none}main{padding:18px 12px}h1{font-size:23px}.card,.panel{padding:15px}.number{font-size:28px}}
+:root {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #e9edff;
+  background: #0b1020;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: clip;
+}
+body { background: #0b1020; }
+button, input { font: inherit; max-width: 100%; }
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-weight: 700;
+  touch-action: manipulation;
+}
+.layout {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 235px minmax(0, 1fr);
+}
+aside {
+  min-width: 0;
+  background: #10172b;
+  border-right: 1px solid #252d45;
+  padding: 25px 16px;
+}
+.logo {
+  font-size: 18px;
+  font-weight: 850;
+  margin-bottom: 35px;
+  overflow-wrap: anywhere;
+}
+.logo span { color: #8b91ff; }
+.nav {
+  padding: 12px;
+  border-radius: 10px;
+  background: #242b49;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.side-note {
+  font-size: 12px;
+  color: #8f9ab8;
+  line-height: 1.7;
+  margin-top: 35px;
+}
+main {
+  padding: 30px;
+  min-width: 0;
+  width: 100%;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  min-width: 0;
+}
+header > div { min-width: 0; }
+header > div:last-child {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+h1 {
+  font-size: clamp(22px, 3vw, 27px);
+  line-height: 1.25;
+  margin: 0 0 7px;
+  letter-spacing: -.8px;
+  overflow-wrap: anywhere;
+}
+.sub {
+  color: #929db9;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.live {
+  font-size: 12px;
+  color: #7ee7b1;
+  background: #12352e;
+  padding: 9px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.card, .panel {
+  min-width: 0;
+  background: #141c31;
+  border: 1px solid #27314b;
+  border-radius: 17px;
+  padding: 20px;
+}
+.card small {
+  color: #9ca8c5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.number {
+  font-size: clamp(25px, 3vw, 32px);
+  font-weight: 800;
+  margin-top: 12px;
+  letter-spacing: -1px;
+  overflow-wrap: anywhere;
+}
+.accent { color: #9c9eff; }
+.green { color: #73e6b0; }
+.orange { color: #ffc978; }
+.pink { color: #ff9bb2; }
+.panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 17px;
+  align-items: start;
+}
+.panels > div { min-width: 0; }
+.panel { margin-bottom: 17px; }
+.panel h2 {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0 0 7px;
+  overflow-wrap: anywhere;
+}
+.panel p {
+  font-size: 12px;
+  color: #929db9;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.tablewrap {
+  width: 100%;
+  min-width: 0;
+  margin-top: 17px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+  font-size: 12px;
+}
+th {
+  text-align: left;
+  color: #929db9;
+  font-weight: 600;
+  padding: 12px 9px;
+  border-bottom: 1px solid #303a54;
+}
+td {
+  padding: 14px 9px;
+  border-bottom: 1px solid #252f48;
+  vertical-align: middle;
+}
+td:first-child { font-weight: 700; }
+.timer {
+  display: inline-block;
+  background: #25294b;
+  color: #b9bdff;
+  border-radius: 8px;
+  padding: 7px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.badge {
+  display: inline-block;
+  border-radius: 30px;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  background: #153b30;
+  color: #80edb8;
+  white-space: nowrap;
+}
+.badge.wait { background: #3c3020; color: #ffd18a; }
+.person {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+.person > div:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.avatar {
+  flex: 0 0 35px;
+  width: 35px;
+  height: 35px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: #292c52;
+  color: #c4c7ff;
+  font-weight: 800;
+}
+.person small {
+  display: block;
+  color: #8f9ab8;
+  margin-top: 4px;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+.empty {
+  text-align: center;
+  padding: 25px 12px;
+  color: #929db9;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.login {
+  width: calc(100% - 32px);
+  max-width: 420px;
+  margin: clamp(24px, 9vh, 80px) auto;
+  background: #141c31;
+  border: 1px solid #27314b;
+  padding: clamp(18px, 5vw, 25px);
+  border-radius: 18px;
+}
+.login h2 { margin-top: 0; overflow-wrap: anywhere; }
+label {
+  display: block;
+  color: #aeb8d1;
+  font-size: 12px;
+  margin: 15px 0 7px;
+}
+input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #35415e;
+  background: #0d1426;
+  color: white;
+  font-size: 16px;
+}
+.primary {
+  background: #6667ef;
+  color: white;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 18px;
+}
+.secondary {
+  background: #242c46;
+  color: #e5e9ff;
+  min-height: 42px;
+}
+.hidden { display: none !important; }
+.error {
+  color: #ff9eac;
+  font-size: 13px;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+  .layout { grid-template-columns: 190px minmax(0, 1fr); }
+  main { padding: 22px 18px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .panels {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  aside {
+    width: 100%;
+    padding: 13px 14px;
+    border-right: 0;
+    border-bottom: 1px solid #252d45;
+  }
+  .logo { font-size: 18px; margin-bottom: 12px; }
+  aside > div:nth-child(2) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .nav {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+  .side-note { display: none; }
+  main { width: 100%; padding: 17px 12px 24px; }
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+    margin-bottom: 18px;
+  }
+  header > div:last-child {
+    width: 100%;
+    justify-content: space-between;
+  }
+  h1 { font-size: 23px; letter-spacing: -.5px; }
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .card {
+    padding: 14px 12px;
+    border-radius: 14px;
+  }
+  .card small { font-size: 11px; }
+  .number { font-size: 27px; margin-top: 9px; }
+  .panel {
+    padding: 14px 12px;
+    border-radius: 14px;
+    margin-bottom: 13px;
+  }
+  .panel h2 { font-size: 15px; }
+  .tablewrap { overflow-x: visible; margin-top: 12px; }
+
+  /* Convert data tables into mobile cards */
+  table, tbody {
+    display: block;
+    width: 100%;
+    white-space: normal;
+  }
+  thead { display: none; }
+  tbody tr {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #303a54;
+    border-radius: 12px;
+    background: #10172a;
+  }
+  tbody td {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #252f48;
+    font-size: 12px;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  tbody td:last-child { border-bottom: 0; }
+  tbody td::before {
+    flex: 0 0 36%;
+    color: #929db9;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  #activeTable tbody td:nth-child(1)::before { content: "Employee"; }
+  #activeTable tbody td:nth-child(2)::before { content: "Mobile"; }
+  #activeTable tbody td:nth-child(3)::before { content: "Taken at"; }
+  #activeTable tbody td:nth-child(4)::before { content: "Time elapsed"; }
+
+  #inventoryTable tbody td:nth-child(1)::before { content: "Device"; }
+  #inventoryTable tbody td:nth-child(2)::before { content: "Employee"; }
+  #inventoryTable tbody td:nth-child(3)::before { content: "Status"; }
+
+  #activeTable .person {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 8px;
+    text-align: right;
+  }
+  #activeTable .avatar { display: none; }
+  #activeTable td:nth-child(1) > .person > div:last-child {
+    text-align: right;
+  }
+  #activeTable td:nth-child(2) {
+    display: block;
+    text-align: right;
+  }
+  #activeTable td:nth-child(2)::before {
+    display: block;
+    margin-bottom: 7px;
+  }
+  #activeTable td:nth-child(2) small,
+  #inventoryTable td:nth-child(1) small {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+  .timer { font-size: 11px; padding: 6px; }
+  .login { margin: 28px auto; border-radius: 16px; }
+  .secondary { padding: 10px 12px; font-size: 13px; }
+}
+
+/* Small phones */
+@media (max-width: 360px) {
+  main { padding: 13px 9px 20px; }
+  .cards { gap: 8px; }
+  .card { padding: 12px 9px; }
+  .number { font-size: 24px; }
+  .live { font-size: 10px; padding: 8px 9px; }
+  .nav { font-size: 11px; padding: 8px 9px; }
+  tbody tr { padding: 7px; }
+  tbody td { gap: 7px; }
+  tbody td::before { flex-basis: 32%; }
+}
 </style>
 </head>
+
 <body>
 <section id="loginScreen" class="login">
   <h2>📱 Mobile Tracking</h2>
   <p class="sub">Sign in with your authorized admin account.</p>
   <form id="loginForm">
-    <label>Email address</label>
+    <label for="email">Email address</label>
     <input id="email" type="email" autocomplete="username" required>
-    <label>Password</label>
+    <label for="password">Password</label>
     <input id="password" type="password" autocomplete="current-password" required>
-    <button class="primary">Sign in to dashboard</button>
+    <button class="primary" type="submit">Sign in to dashboard</button>
   </form>
   <div id="loginError" class="error"></div>
 </section>
@@ -75,8 +465,13 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #35415e;backgr
     <div class="nav">▦ &nbsp; Overview</div>
     <div class="nav">◉ &nbsp; Active mobiles</div>
     <div class="nav">◷ &nbsp; Employees waiting</div>
-    <div class="side-note">DEALERSHIP OPERATIONS<br>Live inventory monitoring<br><br>Data syncs with Firebase.</div>
+    <div class="side-note">
+      DEALERSHIP OPERATIONS<br>
+      Live inventory monitoring<br><br>
+      Data syncs with Firebase.
+    </div>
   </aside>
+
   <main>
     <header>
       <div>
@@ -85,15 +480,27 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #35415e;backgr
       </div>
       <div>
         <span class="live">● LIVE DATA</span>
-        <button id="logout" class="secondary">Sign out</button>
+        <button id="logout" class="secondary" type="button">Sign out</button>
       </div>
     </header>
 
     <section class="cards">
-      <div class="card"><small>Total mobiles</small><div class="number accent" id="total">0</div></div>
-      <div class="card"><small>Currently in use</small><div class="number green" id="active">0</div></div>
-      <div class="card"><small>Employees waiting</small><div class="number orange" id="waiting">0</div></div>
-      <div class="card"><small>Pending requests</small><div class="number pink" id="pending">0</div></div>
+      <div class="card">
+        <small>Total mobiles</small>
+        <div class="number accent" id="total">0</div>
+      </div>
+      <div class="card">
+        <small>Currently in use</small>
+        <div class="number green" id="active">0</div>
+      </div>
+      <div class="card">
+        <small>Employees waiting</small>
+        <div class="number orange" id="waiting">0</div>
+      </div>
+      <div class="card">
+        <small>Pending requests</small>
+        <div class="number pink" id="pending">0</div>
+      </div>
     </section>
 
     <section class="panels">
@@ -103,18 +510,21 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #35415e;backgr
           <p>Assignment time and continuously updating usage duration.</p>
           <div class="tablewrap" id="activeTable"></div>
         </div>
+
         <div class="panel">
           <h2>All mobile inventory</h2>
           <p>Current device status and assigned employee.</p>
           <div class="tablewrap" id="inventoryTable"></div>
         </div>
       </div>
+
       <div>
         <div class="panel">
           <h2>Employees yet to take a mobile</h2>
           <p>Employees without a currently assigned device.</p>
           <div id="waitingList"></div>
         </div>
+
         <div class="panel">
           <h2>Request overview</h2>
           <p>Requests waiting for administrator review.</p>
@@ -122,163 +532,327 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #35415e;backgr
         </div>
       </div>
     </section>
+
     <p class="sub">Mobile Tracking System · Firebase connected dashboard</p>
   </main>
 </div>
 
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut}
-  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import {getFirestore,collection,doc,getDoc,onSnapshot}
-  from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-const firebaseConfig={
-  apiKey:"AIzaSyBUmL-4FX8XGaGq_wLlO699Nw-fZIeXMjg",
-  authDomain:"mobile-details-10065.firebaseapp.com",
-  projectId:"mobile-details-10065",
-  storageBucket:"mobile-details-10065.firebasestorage.app",
-  messagingSenderId:"706518263944",
-  appId:"1:706518263944:web:5b44f94e29a79d223f573d",
-  measurementId:"G-GLEXWMLQ9G"
+const firebaseConfig = {
+  apiKey: "AIzaSyBUmL-4FX8XGaGq_wLlO699Nw-fZIeXMjg",
+  authDomain: "mobile-details-10065.firebaseapp.com",
+  projectId: "mobile-details-10065",
+  storageBucket: "mobile-details-10065.firebasestorage.app",
+  messagingSenderId: "706518263944",
+  appId: "1:706518263944:web:5b44f94e29a79d223f573d",
+  measurementId: "G-GLEXWMLQ9G"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-const $=id=>document.getElementById(id);
-let users=[],devices=[],requests=[],unsubs=[],clock=null;
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const $ = id => document.getElementById(id);
 
-function esc(v){
-  return String(v??"").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function millis(v){
-  if(!v)return 0;
-  if(typeof v.toMillis==="function")return v.toMillis();
-  if(typeof v.seconds==="number")return v.seconds*1000;
-  const n=new Date(v).getTime();
-  return Number.isFinite(n)?n:0;
-}
-function date(v){
-  const n=millis(v);
-  return n?new Date(n).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}):"Not recorded";
-}
-function duration(start){
-  const sec=Math.max(0,Math.floor((Date.now()-start)/1000));
-  const d=Math.floor(sec/86400),h=Math.floor(sec%86400/3600),
-        m=Math.floor(sec%3600/60),s=sec%60;
-  return (d?d+"d ":"")+[h,m,s].map(x=>String(x).padStart(2,"0")).join(":");
-}
-function stop(){
-  unsubs.forEach(fn=>fn());
-  unsubs=[];
-  if(clock)clearInterval(clock);
-}
-function showError(msg){$("loginError").textContent=msg}
-function empty(msg){return `<div class="empty">${esc(msg)}</div>`}
-function userName(uid){
-  const u=users.find(x=>x.id===uid);
-  return u?(u.name||u.empCode||u.id):"Unknown employee";
-}
-function render(){
-  const assigned=devices.filter(d=>d.status==="assigned"&&d.assignedTo);
-  const employees=users.filter(u=>u.role==="employee");
-  const waiting=employees.filter(u=>!assigned.some(d=>d.assignedTo===u.id));
-  const pending=requests.filter(r=>(r.status||"pending")==="pending");
+let users = [];
+let devices = [];
+let requests = [];
+let unsubs = [];
+let clock = null;
 
-  $("total").textContent=devices.length;
-  $("active").textContent=assigned.length;
-  $("waiting").textContent=waiting.length;
-  $("pending").textContent=pending.length;
-
-  $("activeTable").innerHTML=assigned.length?`<table>
-    <thead><tr><th>Employee</th><th>Mobile</th><th>Taken at</th><th>Time elapsed</th></tr></thead>
-    <tbody>${assigned.map(d=>{
-      const start=millis(d.assignedAt);
-      return `<tr>
-        <td><div class="person"><div class="avatar">${esc(userName(d.assignedTo).slice(0,1).toUpperCase())}</div>
-        <div>${esc(userName(d.assignedTo))}<small>${esc(d.assignedTo)}</small></div></div></td>
-        <td>${esc(d.brand||"")} ${esc(d.model||"")}<small style="display:block;color:#929db9;margin-top:4px">${esc(d.id)}</small></td>
-        <td>${esc(date(d.assignedAt))}</td>
-        <td>${start?`<span class="timer" data-start="${start}">${duration(start)}</span>`:"<span class='badge wait'>Time missing</span>"}</td>
-      </tr>`;
-    }).join("")}</tbody></table>`:empty("No mobiles are currently assigned.");
-
-  $("waitingList").innerHTML=waiting.length?waiting.map(u=>`
-    <div class="person" style="margin:16px 0">
-      <div class="avatar">${esc((u.name||"?").slice(0,1).toUpperCase())}</div>
-      <div style="flex:1;min-width:0">${esc(u.name||"Unnamed employee")}
-        <small>${esc(u.empCode||u.id)}</small></div>
-      <span class="badge wait">WAITING</span>
-    </div>`).join(""):empty("All employees have a mobile assigned.");
-
-  $("inventoryTable").innerHTML=devices.length?`<table>
-    <thead><tr><th>Device</th><th>Employee</th><th>Status</th></tr></thead>
-    <tbody>${devices.map(d=>`<tr>
-      <td>${esc(d.id)}<small style="display:block;color:#929db9;margin-top:4px">${esc(d.brand||"")} ${esc(d.model||"")}</small></td>
-      <td>${d.assignedTo?esc(userName(d.assignedTo)):"—"}</td>
-      <td><span class="badge ${d.status==="assigned"?"":"wait"}">${esc(d.status||"unknown")}</span></td>
-    </tr>`).join("")}</tbody></table>`:empty("No inventory devices found.");
-
-  $("requestList").innerHTML=pending.length?pending.slice(0,10).map(r=>`
-    <div style="padding:13px 0;border-bottom:1px solid #29334c">
-      <div style="font-weight:700;font-size:13px">${esc(userName(r.employeeId))}</div>
-      <div class="sub" style="margin:5px 0">${esc(r.type)} · ${esc(r.deviceId||"No device ID")}</div>
-      <div class="sub">${esc(date(r.createdAt))}</div>
-      <span class="badge wait">PENDING</span>
-    </div>`).join(""):empty("No pending requests.");
-
-  $("today").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
 }
-function listen(path,callback){
-  const unsub=onSnapshot(collection(db,path),snap=>{
-    callback(snap.docs.map(d=>({id:d.id,...d.data()})));
-    render();
-  },err=>{
-    console.error(path,err);
-    showError("Data access failed. Check Firestore Security Rules: "+err.message);
+
+function millis(value) {
+  if (!value) return 0;
+  if (typeof value.toMillis === "function") return value.toMillis();
+  if (typeof value.seconds === "number") return value.seconds * 1000;
+
+  const number = new Date(value).getTime();
+  return Number.isFinite(number) ? number : 0;
+}
+
+function date(value) {
+  const number = millis(value);
+  return number
+    ? new Date(number).toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      })
+    : "Not recorded";
+}
+
+function duration(start) {
+  const seconds = Math.max(0, Math.floor((Date.now() - start) / 1000));
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+
+  return (days ? days + "d " : "") +
+    [hours, minutes, secs]
+      .map(value => String(value).padStart(2, "0"))
+      .join(":");
+}
+
+function stop() {
+  unsubs.forEach(unsubscribe => unsubscribe());
+  unsubs = [];
+
+  if (clock) {
+    clearInterval(clock);
+    clock = null;
+  }
+}
+
+function showError(message) {
+  $("loginError").textContent = message;
+}
+
+function empty(message) {
+  return `<div class="empty">${esc(message)}</div>`;
+}
+
+function userName(uid) {
+  const user = users.find(item => item.id === uid);
+  return user
+    ? (user.name || user.empCode || user.id)
+    : "Unknown employee";
+}
+
+function render() {
+  const assigned = devices.filter(
+    device => device.status === "assigned" && device.assignedTo
+  );
+
+  const employees = users.filter(user => user.role === "employee");
+
+  const waiting = employees.filter(
+    user => !assigned.some(device => device.assignedTo === user.id)
+  );
+
+  const pending = requests.filter(
+    request => (request.status || "pending") === "pending"
+  );
+
+  $("total").textContent = devices.length;
+  $("active").textContent = assigned.length;
+  $("waiting").textContent = waiting.length;
+  $("pending").textContent = pending.length;
+
+  $("activeTable").innerHTML = assigned.length
+    ? `<table>
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Mobile</th>
+            <th>Taken at</th>
+            <th>Time elapsed</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${assigned.map(device => {
+            const start = millis(device.assignedAt);
+
+            return `<tr>
+              <td>
+                <div class="person">
+                  <div class="avatar">${esc(
+                    userName(device.assignedTo).slice(0, 1).toUpperCase()
+                  )}</div>
+                  <div>
+                    ${esc(userName(device.assignedTo))}
+                    <small>${esc(device.assignedTo)}</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                ${esc(device.brand || "")} ${esc(device.model || "")}
+                <small style="display:block;color:#929db9;margin-top:4px">
+                  ${esc(device.id)}
+                </small>
+              </td>
+              <td>${esc(date(device.assignedAt))}</td>
+              <td>
+                ${start
+                  ? `<span class="timer" data-start="${start}">${duration(start)}</span>`
+                  : `<span class="badge wait">Time missing</span>`}
+              </td>
+            </tr>`;
+          }).join("")}
+        </tbody>
+      </table>`
+    : empty("No mobiles are currently assigned.");
+
+  $("waitingList").innerHTML = waiting.length
+    ? waiting.map(user => `
+        <div class="person" style="margin:16px 0">
+          <div class="avatar">${esc(
+            (user.name || "?").slice(0, 1).toUpperCase()
+          )}</div>
+          <div style="flex:1;min-width:0">
+            ${esc(user.name || "Unnamed employee")}
+            <small>${esc(user.empCode || user.id)}</small>
+          </div>
+          <span class="badge wait">WAITING</span>
+        </div>
+      `).join("")
+    : empty("All employees have a mobile assigned.");
+
+  $("inventoryTable").innerHTML = devices.length
+    ? `<table>
+        <thead>
+          <tr><th>Device</th><th>Employee</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          ${devices.map(device => `
+            <tr>
+              <td>
+                ${esc(device.id)}
+                <small style="display:block;color:#929db9;margin-top:4px">
+                  ${esc(device.brand || "")} ${esc(device.model || "")}
+                </small>
+              </td>
+              <td>${device.assignedTo ? esc(userName(device.assignedTo)) : "—"}</td>
+              <td>
+                <span class="badge ${device.status === "assigned" ? "" : "wait"}">
+                  ${esc(device.status || "unknown")}
+                </span>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>`
+    : empty("No inventory devices found.");
+
+  $("requestList").innerHTML = pending.length
+    ? pending.slice(0, 10).map(request => `
+        <div style="padding:13px 0;border-bottom:1px solid #29334c">
+          <div style="font-weight:700;font-size:13px">
+            ${esc(userName(request.employeeId))}
+          </div>
+          <div class="sub" style="margin:5px 0">
+            ${esc(request.type)} · ${esc(request.deviceId || "No device ID")}
+          </div>
+          <div class="sub">${esc(date(request.createdAt))}</div>
+          <span class="badge wait">PENDING</span>
+        </div>
+      `).join("")
+    : empty("No pending requests.");
+
+  $("today").textContent = new Date().toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
   });
-  unsubs.push(unsub);
 }
-function start(){
-  stop();
-  listen("users",v=>users=v);
-  listen("devices",v=>devices=v);
-  listen("requests",v=>requests=v);
-  clock=setInterval(()=>{
-    document.querySelectorAll("[data-start]").forEach(el=>{
-      el.textContent=duration(Number(el.dataset.start));
-    });
-  },1000);
-}
-$("loginForm").addEventListener("submit",async e=>{
-  e.preventDefault();showError("");
-  try{
-    await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
-  }catch(err){showError("Login failed: "+err.message)}
-});
-$("logout").addEventListener("click",()=>signOut(auth));
 
-onAuthStateChanged(auth,async user=>{
+function listen(path, callback) {
+  const unsubscribe = onSnapshot(
+    collection(db, path),
+    snapshot => {
+      callback(snapshot.docs.map(item => ({
+        id: item.id,
+        ...item.data()
+      })));
+      render();
+    },
+    error => {
+      console.error(path, error);
+      showError(
+        "Data access failed. Check Firestore Security Rules: " +
+        error.message
+      );
+    }
+  );
+
+  unsubs.push(unsubscribe);
+}
+
+function start() {
+  stop();
+
+  listen("users", value => users = value);
+  listen("devices", value => devices = value);
+  listen("requests", value => requests = value);
+
+  clock = setInterval(() => {
+    document.querySelectorAll("[data-start]").forEach(element => {
+      element.textContent = duration(Number(element.dataset.start));
+    });
+  }, 1000);
+}
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  showError("");
+
+  try {
+    await signInWithEmailAndPassword(
+      auth,
+      $("email").value.trim(),
+      $("password").value
+    );
+  } catch (error) {
+    showError("Login failed: " + error.message);
+  }
+});
+
+$("logout").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    showError("Sign out failed: " + error.message);
+  }
+});
+
+onAuthStateChanged(auth, async user => {
   stop();
   $("app").classList.add("hidden");
   $("loginScreen").classList.remove("hidden");
-  if(!user)return;
-  try{
-    const snap=await getDoc(doc(db,"users",user.uid));
-    if(!snap.exists()||snap.data().role!=="admin"){
+  showError("");
+
+  if (!user) return;
+
+  try {
+    const snapshot = await getDoc(doc(db, "users", user.uid));
+
+    if (!snapshot.exists() || snapshot.data().role !== "admin") {
       await signOut(auth);
-      showError("Admin access only. This account must have role='admin' in users/{UID}.");
+      showError(
+        "Admin access only. This account must have role='admin' in users/{UID}."
+      );
       return;
     }
+
     $("loginScreen").classList.add("hidden");
     $("app").classList.remove("hidden");
     start();
-  }catch(err){
+  } catch (error) {
     await signOut(auth);
-    showError("Could not verify admin profile: "+err.message);
+    showError("Could not verify admin profile: " + error.message);
   }
 });
 </script>
